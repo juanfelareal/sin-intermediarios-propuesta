@@ -78,6 +78,17 @@
         .exp li { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; font-size: 15px; color: #4b5563; display: flex; gap: 14px; align-items: baseline; }
         .exp b { color: var(--ink); font-weight: 800; min-width: 130px; flex-shrink: 0; }
 
+        /* Marquee de clientes (de landing.larealmarketing.com) */
+        @keyframes mq-roll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .mq { margin-top: 22px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        .mq-row { overflow: hidden; padding: 14px 0; }
+        .mq-row + .mq-row { border-top: 1px solid var(--line); opacity: 0.45; }
+        .mq-track { display: flex; width: max-content; font-weight: 800; font-size: clamp(26px, 4vw, 46px); letter-spacing: -0.03em; line-height: 1; color: var(--ink); animation: mq-roll 55s linear infinite; }
+        .mq-row.reverse .mq-track { animation-direction: reverse; animation-duration: 70s; }
+        .mq-item { display: inline-flex; align-items: center; }
+        .mq-item .ast { color: var(--green); margin: 0 30px; font-weight: 400; font-size: 0.5em; }
+        @media (prefers-reduced-motion: reduce) { .mq-track { animation: none; } }
+
         /* Packages */
         .pkgs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
         .pkg { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px 22px; position: relative; }
@@ -201,7 +212,12 @@
 
         <section>
             <h2>Experiencia</h2>
-            <p>En LA REAL trabajamos mes a mes con <strong>+25 marcas en Latinoamérica</strong> y hemos trabajado con <strong>+200 marcas a nivel mundial</strong> para hacer crecer sus ventas con estrategias como esta: contenido UGC, pauta, email marketing y CRO. Algunos ejemplos:</p>
+            <p>En LA REAL trabajamos mes a mes con <strong>+25 marcas en Latinoamérica</strong> y hemos trabajado con <strong>+200 marcas a nivel mundial</strong> para hacer crecer sus ventas con estrategias como esta: contenido UGC, pauta, email marketing y CRO.</p>
+            <div class="mq">
+                <div class="mq-row"><div class="mq-track" id="mq1"></div></div>
+                <div class="mq-row reverse"><div class="mq-track" id="mq2"></div></div>
+            </div>
+            <p style="margin-top: 24px;">Algunos ejemplos:</p>
             <ul class="exp">
                 <li><b>Barba Roja</b> <span>Definimos el ángulo central de su producto estrella tras testear decenas de variaciones; hoy es la base de toda su comunicación.</span></li>
                 <li><b>Adriza</b> <span>Pasó de ~$300k a decenas de millones al mes tras encontrar la combinación ángulo–creador–formato correcta y escalarla.</span></li>
@@ -308,5 +324,17 @@
         </div>
 
     </div>
+
+    <script>
+        const BRANDS = ['Cacao Hunters','Dulcey','Kryolan','Panavayu','Barba Roja','Leonisa','Once','Pachha','Zorro y Jaguar','Estruendo','Ukelele','Sandra Botero','Cíclico','IFW','Adriza','Atratus','Gratu','Natnack'];
+        function brandsHTML(list) {
+            const items = list.map(b => `<span class="mq-item"><span class="word">${b}</span><span class="ast">✱</span></span>`).join('');
+            return items + items;
+        }
+        const half = Math.floor(BRANDS.length / 2);
+        const rotated = [...BRANDS.slice(half), ...BRANDS.slice(0, half)];
+        document.getElementById('mq1').innerHTML = brandsHTML(BRANDS);
+        document.getElementById('mq2').innerHTML = brandsHTML(rotated);
+    </script>
 </body>
 </html>
