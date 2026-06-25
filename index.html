@@ -117,15 +117,20 @@
         .step li { font-size: 13.5px; color: #4b5563; display: flex; gap: 9px; align-items: baseline; }
         .step li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; transform: translateY(-2px); }
 
-        /* KPIs */
-        .kpi-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .kpi-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; }
-        .kpi-card.biz { border-color: var(--green); }
-        .kpi-h { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
-        .kpi-card ul { list-style: none; display: grid; gap: 9px; }
-        .kpi-card li { font-size: 14.5px; color: #4b5563; line-height: 1.45; display: flex; gap: 10px; align-items: baseline; }
-        .kpi-card li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; transform: translateY(-2px); }
-        .kpi-card li b { color: var(--ink); font-weight: 700; }
+        /* Subtítulo de bloque */
+        .sublabel { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin: 30px 0 14px; }
+
+        /* KPI principal (banner) */
+        .kpi-star { background: var(--navy); color: #fff; border-radius: 14px; padding: 22px 26px; display: flex; gap: 20px; align-items: center; margin-top: 6px; }
+        .kpi-star-tag { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--navy); background: var(--green); padding: 6px 13px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
+        .kpi-star-text { font-size: 15.5px; line-height: 1.5; color: #e5e7eb; }
+        .kpi-star-text b { color: #fff; font-weight: 800; }
+
+        /* KPIs de contenido (chips) */
+        .kpi-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .chip { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+        .chip b { display: block; font-size: 15px; font-weight: 800; color: var(--ink); letter-spacing: -0.2px; margin-bottom: 4px; }
+        .chip span { font-size: 13px; color: var(--muted); line-height: 1.4; }
 
         /* Semáforo */
         .sem { display: grid; gap: 10px; }
@@ -153,7 +158,8 @@
             .vars { grid-template-columns: 1fr 1fr; }
             .pkgs { grid-template-columns: 1fr; }
             .plan { grid-template-columns: 1fr; }
-            .kpi-cols { grid-template-columns: 1fr; }
+            .kpi-chips { grid-template-columns: 1fr 1fr; }
+            .kpi-star { flex-direction: column; align-items: flex-start; gap: 12px; }
             .inc { grid-template-columns: 1fr; }
             .exp li { flex-direction: column; gap: 4px; }
             .exp b { min-width: 0; }
@@ -230,26 +236,23 @@
         <section>
             <h2>Cómo medimos el éxito</h2>
             <p>El éxito no es subjetivo. Lo amarramos a un <strong>baseline</strong> que fijamos contigo y con tu agencia de trafique en el kickoff, sobre un dashboard compartido donde todos miramos los mismos números.</p>
-            <div class="kpi-cols">
-                <div class="kpi-card biz">
-                    <div class="kpi-h">KPI de negocio</div>
-                    <ul>
-                        <li><b>ROAS / CPA de la cuenta</b> se mantiene o mejora mientras escala la inversión en Meta. Es decir: más inversión sin perder rentabilidad.</li>
-                    </ul>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-h">KPIs de contenido</div>
-                    <ul>
-                        <li><b>Hook rate</b> (3s) y retención del video</li>
-                        <li><b>CTR</b> de cada creativo</li>
-                        <li><b>CPA y ROAS</b> por creativo, ángulo y creador</li>
-                        <li><b>Win rate:</b> % de videos que superan el benchmark</li>
-                        <li><b>Ganadores</b> identificados (ángulo · creador · formato)</li>
-                    </ul>
-                </div>
+
+            <div class="kpi-star">
+                <span class="kpi-star-tag">KPI principal</span>
+                <span class="kpi-star-text"><b>ROAS / CPA de la cuenta</b> se mantiene o mejora mientras escala la inversión en Meta. En una frase: más inversión, sin perder rentabilidad.</span>
             </div>
 
-            <p style="margin-top: 26px;">Metas por mes (se calibran con tu baseline real):</p>
+            <div class="sublabel">KPIs de contenido que seguimos</div>
+            <div class="kpi-chips">
+                <div class="chip"><b>Hook rate</b><span>Retención a 3 segundos</span></div>
+                <div class="chip"><b>CTR</b><span>Clic de cada creativo</span></div>
+                <div class="chip"><b>CPA / ROAS</b><span>Por creativo, ángulo y creador</span></div>
+                <div class="chip"><b>Win rate</b><span>% que supera el benchmark</span></div>
+                <div class="chip"><b>Ganadores</b><span>Ángulo · creador · formato</span></div>
+                <div class="chip"><b>Retención</b><span>Cuánto se ve el video completo</span></div>
+            </div>
+
+            <div class="sublabel">Metas por mes <span style="text-transform:none; letter-spacing:0; font-weight:500; color:#9ca3af;">— se calibran con tu baseline real</span></div>
             <div class="plan">
                 <div class="step first">
                     <div class="step-m">Mes 1 · Validar</div>
@@ -281,7 +284,7 @@
                 </div>
             </div>
 
-            <p style="margin-top: 26px;">Y la regla para decidir, video a video:</p>
+            <div class="sublabel">La regla para decidir, video a video</div>
             <div class="sem">
                 <div class="sem-item"><span class="sem-dot" style="background:#16a34a;"></span><span><b>Verde —</b> bate el benchmark → se escala.</span></div>
                 <div class="sem-item"><span class="sem-dot" style="background:#f59e0b;"></span><span><b>Amarillo —</b> en línea con el benchmark → se itera el ángulo o el formato.</span></div>
