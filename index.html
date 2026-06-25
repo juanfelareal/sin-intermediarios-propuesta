@@ -117,6 +117,22 @@
         .step li { font-size: 13.5px; color: #4b5563; display: flex; gap: 9px; align-items: baseline; }
         .step li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; transform: translateY(-2px); }
 
+        /* KPIs */
+        .kpi-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .kpi-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; }
+        .kpi-card.biz { border-color: var(--green); }
+        .kpi-h { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+        .kpi-card ul { list-style: none; display: grid; gap: 9px; }
+        .kpi-card li { font-size: 14.5px; color: #4b5563; line-height: 1.45; display: flex; gap: 10px; align-items: baseline; }
+        .kpi-card li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; transform: translateY(-2px); }
+        .kpi-card li b { color: var(--ink); font-weight: 700; }
+
+        /* Semáforo */
+        .sem { display: grid; gap: 10px; }
+        .sem-item { display: flex; gap: 12px; align-items: baseline; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; font-size: 14.5px; color: #4b5563; }
+        .sem-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; transform: translateY(1px); }
+        .sem-item b { color: var(--ink); font-weight: 700; }
+
         /* Callout / next step */
         .next { margin-top: 56px; background: var(--navy); color: #fff; border-radius: 18px; padding: 40px 40px; }
         .next h2 { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.12); }
@@ -137,6 +153,7 @@
             .vars { grid-template-columns: 1fr 1fr; }
             .pkgs { grid-template-columns: 1fr; }
             .plan { grid-template-columns: 1fr; }
+            .kpi-cols { grid-template-columns: 1fr; }
             .inc { grid-template-columns: 1fr; }
             .exp li { flex-direction: column; gap: 4px; }
             .exp b { min-width: 0; }
@@ -208,6 +225,68 @@
                 <div class="var"><div class="var-t">Ventas</div><div class="var-d">Atribución real a facturación</div></div>
             </div>
             <p class="note">Los ángulos concretos a medir se definen en ese <strong>primer brief conjunto</strong>; no los damos por sentado en esta propuesta.</p>
+        </section>
+
+        <section>
+            <h2>Cómo medimos el éxito</h2>
+            <p>El éxito no es subjetivo. Lo amarramos a un <strong>baseline</strong> que fijamos contigo y con tu agencia de trafique en el kickoff, sobre un dashboard compartido donde todos miramos los mismos números.</p>
+            <div class="kpi-cols">
+                <div class="kpi-card biz">
+                    <div class="kpi-h">KPI de negocio</div>
+                    <ul>
+                        <li><b>ROAS / CPA de la cuenta</b> se mantiene o mejora mientras escala la inversión en Meta. Es decir: más inversión sin perder rentabilidad.</li>
+                    </ul>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-h">KPIs de contenido</div>
+                    <ul>
+                        <li><b>Hook rate</b> (3s) y retención del video</li>
+                        <li><b>CTR</b> de cada creativo</li>
+                        <li><b>CPA y ROAS</b> por creativo, ángulo y creador</li>
+                        <li><b>Win rate:</b> % de videos que superan el benchmark</li>
+                        <li><b>Ganadores</b> identificados (ángulo · creador · formato)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 26px;">Metas por mes (se calibran con tu baseline real):</p>
+            <div class="plan">
+                <div class="step first">
+                    <div class="step-m">Mes 1 · Validar</div>
+                    <div class="step-t">Encontrar señal</div>
+                    <ul>
+                        <li>100% de los videos entregados</li>
+                        <li>Medición montada (UTMs + atribución)</li>
+                        <li>≥2–3 combinaciones ganadoras que igualan o superan el ROAS de la cuenta</li>
+                        <li>Aún no se juzga por facturación</li>
+                    </ul>
+                </div>
+                <div class="step">
+                    <div class="step-m">Mes 2 · Duplicar</div>
+                    <div class="step-t">Sostener al escalar</div>
+                    <ul>
+                        <li>ROAS del UGC ≥ baseline</li>
+                        <li>~30–40% del gasto sobre creativos UGC</li>
+                        <li>Los ganadores sostienen rendimiento al subir volumen</li>
+                    </ul>
+                </div>
+                <div class="step">
+                    <div class="step-m">Mes 3+ · Escalar</div>
+                    <div class="step-t">Más inversión, igual o mejor ROAS</div>
+                    <ul>
+                        <li>Inversión en Meta ↑ (hacia 2–3x)</li>
+                        <li>ROAS estable o mejor</li>
+                        <li>UGC como parte central de la cuenta</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 26px;">Y la regla para decidir, video a video:</p>
+            <div class="sem">
+                <div class="sem-item"><span class="sem-dot" style="background:#16a34a;"></span><span><b>Verde —</b> bate el benchmark → se escala.</span></div>
+                <div class="sem-item"><span class="sem-dot" style="background:#f59e0b;"></span><span><b>Amarillo —</b> en línea con el benchmark → se itera el ángulo o el formato.</span></div>
+                <div class="sem-item"><span class="sem-dot" style="background:#dc2626;"></span><span><b>Rojo —</b> por debajo tras un par de iteraciones → se cambia la hipótesis.</span></div>
+            </div>
         </section>
 
         <section>
