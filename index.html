@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia de Contenido UGC — Sin Intermediarios x LA REAL</title>
+
+    <meta property="og:title" content="Estrategia de Contenido UGC — Sin Intermediarios x LA REAL">
+    <meta property="og:description" content="La palanca que multiplica tu facturación sin sacrificar tu rentabilidad.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="logo-la-real.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0D1B2A;
+            color: #1a1a1a;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .presentation { width: 100vw; height: 100vh; position: relative; }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 100px 80px 80px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            overflow: hidden;
+        }
+        .slide-portada, .slide-cierre { justify-content: center; }
+        .slide.active { opacity: 1; visibility: visible; }
+        .slide > * { position: relative; z-index: 2; }
+
+        .slide-dark { background: #0D1B2A; color: #ffffff; }
+        .slide-dark::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(74,222,128,0.06) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(59,130,246,0.04) 0%, transparent 50%);
+            pointer-events: none; z-index: 1;
+        }
+
+        .slide-light { background: #F5F0EB; color: #1a1a1a; }
+        .slide-light::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at 80% 20%, rgba(74,222,128,0.04) 0%, transparent 50%);
+            pointer-events: none; z-index: 1;
+        }
+
+        h1 { font-size: 72px; font-weight: 900; line-height: 1.0; letter-spacing: -3px; max-width: 1050px; text-align: center; margin-bottom: 30px; }
+        h2 { font-size: 52px; font-weight: 900; line-height: 1.1; letter-spacing: -2px; max-width: 950px; text-align: center; margin-bottom: 30px; }
+        h3 { font-size: 28px; font-weight: 600; text-align: center; margin-bottom: 20px; letter-spacing: -0.5px; }
+
+        .highlight { color: #4ADE80; }
+        .slide-light .highlight { color: #16a34a; }
+
+        .subtitle { font-size: 20px; color: #94A3B8; text-align: center; max-width: 640px; line-height: 1.6; font-weight: 400; }
+        .slide-light .subtitle { color: #6b7280; }
+
+        .section-tag { font-size: 12px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 24px; padding: 8px 20px; border-radius: 50px; }
+        .slide-dark .section-tag { color: #4ADE80; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
+        .slide-light .section-tag { color: #0D1B2A; background: rgba(13,27,42,0.06); border: 1px solid rgba(13,27,42,0.1); }
+
+        /* Stats row */
+        .stats-row { display: flex; gap: 24px; margin-top: 40px; flex-wrap: wrap; justify-content: center; max-width: 980px; }
+        .stat-box { background: #fff; border-radius: 18px; padding: 30px 28px; text-align: center; min-width: 200px; flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.3s ease; }
+        .stat-box:hover { transform: translateY(-3px); }
+        .stat-num { font-size: 46px; font-weight: 900; color: #0D1B2A; letter-spacing: -2px; line-height: 1; }
+        .stat-num .highlight { color: #16a34a; }
+        .stat-label { font-size: 14px; font-weight: 500; color: #6b7280; margin-top: 10px; line-height: 1.35; }
+
+        /* Pain grid */
+        .pain-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; max-width: 860px; width: 100%; }
+        .pain-card { background: #fff; border-radius: 16px; padding: 26px 24px; display: flex; align-items: flex-start; gap: 16px; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .pain-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08); }
+        .pain-icon { width: 46px; height: 46px; border-radius: 13px; background: #FEE2E2; display: flex; align-items: center; justify-content: center; font-size: 21px; flex-shrink: 0; }
+        .pain-text { font-size: 15.5px; font-weight: 500; color: #374151; line-height: 1.45; }
+        .pain-text strong { color: #0D1B2A; font-weight: 700; }
+
+        /* Pillars (3 cards) */
+        .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; max-width: 1020px; width: 100%; }
+        .pillar-card { background: #fff; border-radius: 20px; padding: 34px 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: left; display: flex; flex-direction: column; }
+        .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 20px 50px rgba(0,0,0,0.1); }
+        .pillar-num { font-size: 14px; font-weight: 800; color: #16a34a; letter-spacing: 2px; margin-bottom: 14px; }
+        .pillar-icon { width: 52px; height: 52px; border-radius: 15px; background: #DCFCE7; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+        .pillar-title { font-size: 21px; font-weight: 900; color: #0D1B2A; letter-spacing: -0.5px; margin-bottom: 12px; line-height: 1.15; }
+        .pillar-desc { font-size: 14.5px; font-weight: 500; color: #6b7280; line-height: 1.5; }
+        .pillar-desc strong { color: #0D1B2A; font-weight: 700; }
+
+        /* Tesis: con vs sin */
+        .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; max-width: 900px; width: 100%; }
+        .vs-card { border-radius: 20px; padding: 34px 30px; text-align: left; }
+        .vs-bad { background: #fff; border: 1px solid #fecaca; }
+        .vs-good { background: #0D1B2A; color: #fff; box-shadow: 0 20px 50px rgba(13,27,42,0.18); }
+        .vs-label { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; }
+        .vs-bad .vs-label { color: #dc2626; }
+        .vs-good .vs-label { color: #4ADE80; }
+        .vs-line { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: #374151; padding: 12px 0; border-bottom: 1px solid #f1f1f1; }
+        .vs-good .vs-line { color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .vs-line:last-child { border-bottom: none; }
+        .vs-mark { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+        .vs-bad .vs-mark { background: #FEE2E2; color: #dc2626; }
+        .vs-good .vs-mark { background: rgba(74,222,128,0.15); color: #4ADE80; }
+        .vs-punch { margin-top: 18px; font-size: 24px; font-weight: 900; letter-spacing: -1px; }
+        .vs-bad .vs-punch { color: #dc2626; }
+        .vs-good .vs-punch { color: #4ADE80; }
+
+        /* Matrix table */
+        .matrix { max-width: 940px; width: 100%; margin-top: 26px; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.06); }
+        .matrix-row { display: grid; grid-template-columns: 1.3fr 1.3fr 1fr 0.9fr; }
+        .matrix-head { background: #0D1B2A; }
+        .matrix-head > div { color: #fff; font-size: 12.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 16px 20px; }
+        .matrix-row:not(.matrix-head) > div { padding: 16px 20px; font-size: 14.5px; font-weight: 500; color: #374151; border-top: 1px solid #f0f0f0; }
+        .matrix-row.win { background: #F0FDF4; }
+        .matrix-row.win > div { color: #166534; font-weight: 700; }
+        .matrix-sales { font-weight: 800 !important; color: #0D1B2A !important; }
+        .matrix-row.win .matrix-sales { color: #16a34a !important; }
+        .matrix-caption { margin-top: 18px; font-size: 15px; font-weight: 600; color: #16a34a; text-align: center; max-width: 760px; }
+
+        /* Cases */
+        .cases { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 26px; max-width: 940px; width: 100%; }
+        .case-card { background: #fff; border-radius: 20px; padding: 32px 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.3s ease; text-align: left; }
+        .case-card:hover { transform: translateY(-4px); }
+        .case-brand { font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #16a34a; margin-bottom: 14px; }
+        .case-angle { font-size: 19px; font-weight: 800; color: #0D1B2A; letter-spacing: -0.5px; line-height: 1.25; margin-bottom: 14px; }
+        .case-angle em { color: #16a34a; font-style: normal; }
+        .case-result { display: flex; align-items: center; gap: 14px; margin: 16px 0; }
+        .case-before { font-size: 22px; font-weight: 800; color: #94A3B8; letter-spacing: -1px; }
+        .case-arrow { color: #16a34a; font-size: 20px; }
+        .case-after { font-size: 30px; font-weight: 900; color: #0D1B2A; letter-spacing: -1.5px; }
+        .case-note { font-size: 13.5px; font-weight: 500; color: #6b7280; line-height: 1.5; }
+
+        /* Tiers */
+        .tier-table { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 26px; max-width: 920px; width: 100%; }
+        .tier-card { background: #fff; border-radius: 20px; padding: 34px 26px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; }
+        .tier-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 20px 50px rgba(0,0,0,0.1); }
+        .tier-card.recommended { border: 2px solid #16a34a; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 30px rgba(22,163,74,0.14); transform: scale(1.04); }
+        .tier-card.recommended:hover { transform: scale(1.04) translateY(-4px); }
+        .tier-name { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #16a34a; }
+        .tier-volume { font-size: 15px; font-weight: 600; color: #6b7280; }
+        .tier-unit { font-size: 40px; font-weight: 900; color: #0D1B2A; letter-spacing: -1.5px; line-height: 1; margin-top: 6px; }
+        .tier-unit-label { font-size: 12px; font-weight: 600; color: #9ca3af; }
+        .tier-total { font-size: 14px; font-weight: 700; color: #16a34a; margin-top: 8px; padding: 5px 14px; background: #DCFCE7; border-radius: 50px; }
+        .tier-audience { font-size: 13px; font-style: italic; color: #9ca3af; line-height: 1.35; margin-top: 6px; }
+        .pricing-recommended-tag { position: absolute; top: -14px; background: #16a34a; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 18px; border-radius: 50px; }
+        .pricing-note { margin-top: 24px; max-width: 760px; text-align: center; }
+        .pricing-note p { font-size: 14.5px; font-weight: 500; color: #6b7280; line-height: 1.6; }
+        .pricing-note .highlight-note { color: #16a34a; font-weight: 700; }
+
+        /* Includes */
+        .includes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; max-width: 920px; width: 100%; }
+        .include-item { background: #fff; border-radius: 14px; padding: 20px 22px; display: flex; align-items: flex-start; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 18px rgba(0,0,0,0.03); transition: transform 0.3s ease; }
+        .include-item:hover { transform: translateY(-2px); }
+        .include-check { width: 26px; height: 26px; background: #DCFCE7; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #166534; font-weight: 800; flex-shrink: 0; }
+        .include-text { font-size: 14.5px; font-weight: 500; color: #374151; line-height: 1.4; }
+        .include-text strong { font-weight: 700; color: #0D1B2A; }
+
+        /* Roadmap */
+        .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; max-width: 1020px; width: 100%; }
+        .roadmap-card { background: #fff; border-radius: 20px; padding: 32px 26px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: left; }
+        .roadmap-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 20px 50px rgba(0,0,0,0.1); }
+        .roadmap-card.featured { border: 2px solid #16a34a; }
+        .roadmap-month { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #16a34a; margin-bottom: 8px; }
+        .roadmap-title { font-size: 21px; font-weight: 900; color: #0D1B2A; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.2; }
+        .roadmap-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .roadmap-list li { font-size: 14px; font-weight: 500; color: #374151; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; }
+        .roadmap-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #16a34a; flex-shrink: 0; margin-top: 6px; }
+
+        /* Hero pills */
+        .hero-pills { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; justify-content: center; }
+        .hero-pill { display: flex; align-items: center; gap: 10px; padding: 12px 24px; border: 1px solid rgba(74,222,128,0.3); border-radius: 50px; font-size: 15px; font-weight: 600; color: #fff; background: rgba(74,222,128,0.06); box-shadow: 0 0 20px rgba(74,222,128,0.1); opacity: 0; transform: translateY(20px); animation: pillFadeIn 0.6s ease forwards; }
+        .hero-pill:nth-child(1) { animation-delay: 0.3s; }
+        .hero-pill:nth-child(2) { animation-delay: 0.5s; }
+        .hero-pill:nth-child(3) { animation-delay: 0.7s; }
+        .hero-pill:hover { background: rgba(74,222,128,0.12); box-shadow: 0 0 30px rgba(74,222,128,0.2); transform: translateY(-2px); transition: all 0.3s ease; }
+        .pill-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+        .logo-client-dark { filter: brightness(0) invert(1); }
+
+        .navigation { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 10px; z-index: 100; }
+        .nav-btn { width: 44px; height: 44px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: white; font-size: 18px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        .nav-btn:hover { background: #4ADE80; color: #0D1B2A; border-color: #4ADE80; }
+        .progress { position: fixed; bottom: 0; left: 0; height: 3px; background: #4ADE80; transition: width 0.3s ease; z-index: 200; }
+        .slide-counter { position: fixed; bottom: 38px; left: 30px; font-size: 13px; font-weight: 500; color: #64748B; z-index: 100; transition: color 0.5s ease; letter-spacing: 1px; }
+        .fullscreen-hint { position: fixed; top: 30px; right: 30px; font-size: 11px; font-weight: 500; color: #64748B; z-index: 100; transition: color 0.5s ease; letter-spacing: 0.5px; }
+
+        @keyframes pillFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 31px; letter-spacing: -1.5px; margin-bottom: 18px; }
+            h2 { font-size: 24px; letter-spacing: -1px; margin-bottom: 18px; }
+            h3 { font-size: 18px; }
+            .slide { padding: 56px 18px 24px !important; overflow-y: auto; justify-content: flex-start; }
+            .slide-portada, .slide-cierre { justify-content: center; }
+            .subtitle { font-size: 15px; max-width: 100%; }
+            .section-tag { font-size: 10px; letter-spacing: 3px; padding: 6px 14px; margin-bottom: 16px; }
+            .stats-row { flex-direction: column; gap: 12px; margin-top: 24px; width: 100%; }
+            .stat-box { min-width: 0; padding: 22px; }
+            .stat-num { font-size: 36px; }
+            .pain-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+            .pain-card { padding: 16px; gap: 12px; }
+            .pain-icon { width: 38px; height: 38px; font-size: 17px; border-radius: 11px; }
+            .pain-text { font-size: 14px; }
+            .pillar-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+            .pillar-card { padding: 24px 22px; }
+            .pillar-title { font-size: 19px; }
+            .pillar-icon { width: 44px; height: 44px; }
+            .versus { grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+            .vs-card { padding: 24px 22px; }
+            .vs-punch { font-size: 20px; }
+            .matrix { margin-top: 18px; }
+            .matrix-row { grid-template-columns: 1fr 1fr 0.8fr 0.7fr; }
+            .matrix-head > div { font-size: 9.5px; padding: 10px 8px; letter-spacing: 0.3px; }
+            .matrix-row:not(.matrix-head) > div { font-size: 11.5px; padding: 11px 8px; }
+            .matrix-caption { font-size: 13px; margin-top: 14px; }
+            .cases { grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+            .case-card { padding: 24px 22px; }
+            .case-after { font-size: 26px; }
+            .tier-table { grid-template-columns: 1fr; gap: 16px; margin-top: 18px; }
+            .tier-card.recommended { transform: none; order: -1; }
+            .tier-card.recommended:hover { transform: none; }
+            .tier-unit { font-size: 34px; }
+            .includes-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
+            .include-item { padding: 16px 18px; }
+            .include-text { font-size: 13.5px; }
+            .roadmap { grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+            .roadmap-card { padding: 24px 22px; }
+            .roadmap-title { font-size: 18px; }
+            .roadmap-list li { font-size: 13px; }
+            .hero-pills { flex-direction: column; align-items: center; gap: 10px; margin-top: 24px; }
+            .hero-pill { font-size: 13px; padding: 10px 18px; }
+            .navigation { bottom: 16px; right: 16px; gap: 8px; }
+            .nav-btn { width: 38px; height: 38px; font-size: 16px; border-radius: 10px; }
+            .slide-counter { bottom: 22px; left: 16px; font-size: 11px; }
+            .fullscreen-hint { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <div class="progress" id="progress"></div>
+        <div class="slide-counter" id="slideCounter">1 / 13</div>
+        <div class="fullscreen-hint" id="fullscreenHint">Presiona F para pantalla completa</div>
+
+        <!-- ===================== SLIDE 1: PORTADA (DARK) ===================== -->
+        <div class="slide slide-dark slide-portada active" id="slide1">
+            <div style="display: flex; align-items: center; gap: 22px; margin-bottom: 34px;">
+                <img src="sin-intermediarios-logo.png" alt="Sin Intermediarios" class="logo-client-dark" style="height: 30px; opacity: 0.95;">
+                <span style="font-size: 22px; color: #334155; font-weight: 300;">&times;</span>
+                <img src="logo-la-real.png" alt="LA REAL" style="height: 30px; opacity: 0.9;">
+            </div>
+            <p style="font-size: 13px; color: #64748B; font-weight: 500; margin-bottom: 26px; letter-spacing: 2px; text-transform: uppercase;">Propuesta de estrategia &mdash; Junio 2026</p>
+            <h1>La palanca que multiplica tu facturaci&oacute;n <span class="highlight">sin sacrificar tu rentabilidad</span></h1>
+            <p class="subtitle" style="font-size: 21px;">Estrategia de contenido UGC para Sin Intermediarios</p>
+            <div class="hero-pills">
+                <div class="hero-pill">
+                    <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    &Aacute;ngulos de venta
+                </div>
+                <div class="hero-pill">
+                    <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Creadores UGC
+                </div>
+                <div class="hero-pill">
+                    <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                    An&aacute;lisis post-pauta
+                </div>
+            </div>
+            <p style="font-size: 13px; color: #64748B; margin-top: 36px; font-weight: 500;">Preparado por <img src="logo-la-real.png" alt="LA REAL" style="height: 16px; vertical-align: middle; opacity: 0.7; margin: 0 4px;"> LA REAL &mdash; Agencia de Ecommerce</p>
+        </div>
+
+        <!-- ===================== SLIDE 2: DÓNDE ESTÁN (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide2">
+            <span class="section-tag">El punto de partida</span>
+            <h2>Est&aacute;n listos para <span class="highlight">escalar</span></h2>
+            <p class="subtitle" style="font-size: 18px; max-width: 720px;">Producto superior, categor&iacute;a propia y una m&aacute;quina de adquisici&oacute;n que ya funciona. La pregunta no es <em>si</em> crecer, sino <strong>qu&eacute; palanca encender</strong> para hacerlo sin que se caiga el retorno.</p>
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-num">$130M</div>
+                    <div class="stat-label">en pauta al mes con buen retorno</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">#1</div>
+                    <div class="stat-label">marca l&iacute;der online en su categor&iacute;a</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num"><span class="highlight">x2</span></div>
+                    <div class="stat-label">subi&oacute; el ROI al reestructurar la cuenta</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">200k</div>
+                    <div class="stat-label">seguidores y miles de visitas al mes</div>
+                </div>
+            </div>
+            <p style="margin-top: 30px; font-size: 16px; font-weight: 600; color: #16a34a; text-align: center; max-width: 760px;">El plan ya est&aacute; claro: doblar la inversi&oacute;n en Meta x2, x3, x4. Pero hay una condici&oacute;n para que funcione.</p>
+        </div>
+
+        <!-- ===================== SLIDE 3: EL GAP (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide3">
+            <span class="section-tag">El cuello de botella</span>
+            <h2>Tienes el presupuesto. Falta el <span class="highlight">combustible</span></h2>
+            <p class="subtitle" style="font-size: 18px; max-width: 720px;">Entramos a tu biblioteca de anuncios: <strong>~200 anuncios activos, pero solo 1 o 2 son contenido UGC real.</strong> Para una marca que invierte lo que t&uacute; inviertes, eso deber&iacute;a ser 10 veces m&aacute;s.</p>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">&#127909;</div>
+                    <div class="pain-text"><strong>Casi cero UGC andando.</strong> Tu mejor activo &mdash;gente real recomendando el producto&mdash; es justo el que casi no est&aacute;s usando en pauta.</div>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">&#129309;</div>
+                    <div class="pain-text"><strong>La gesti&oacute;n es 100% org&aacute;nica.</strong> "Quien escribe, se le hace un canje." Llegaron ~40 personas y no hay tiempo ni equipo para aprovecharlas a escala.</div>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">&#128202;</div>
+                    <div class="pain-text"><strong>No mides qu&eacute; vende.</strong> Sin saber qu&eacute; &aacute;ngulo, qu&eacute; creador y qu&eacute; formato convierte, es imposible saber a qu&eacute; hacerle <em>double down</em>.</div>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">&#128201;</div>
+                    <div class="pain-text"><strong>Escalar a ciegas quema plata.</strong> Si doblas el presupuesto con los mismos pocos creativos, la audiencia se satura y el retorno se desploma.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 4: LA TESIS (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide4">
+            <span class="section-tag">La tesis</span>
+            <h2>M&aacute;s presupuesto sin m&aacute;s contenido <span class="highlight">= menos retorno</span></h2>
+            <p class="subtitle" style="font-size: 18px; max-width: 720px;">El contenido UGC es la &uacute;nica palanca que te deja meter m&aacute;s plata en pauta <strong>mientras proteges (o mejoras) la rentabilidad.</strong></p>
+            <div class="versus">
+                <div class="vs-card vs-bad">
+                    <div class="vs-label">Escalar sin estrategia de contenido</div>
+                    <div class="vs-line"><span class="vs-mark">&times;</span> Doblas la inversi&oacute;n en Meta</div>
+                    <div class="vs-line"><span class="vs-mark">&times;</span> Los mismos pocos creativos se queman</div>
+                    <div class="vs-line"><span class="vs-mark">&times;</span> La audiencia se satura, sube el CAC</div>
+                    <div class="vs-punch">El retorno se cae a la mitad</div>
+                </div>
+                <div class="vs-card vs-good">
+                    <div class="vs-label">Escalar con contenido UGC + datos</div>
+                    <div class="vs-line"><span class="vs-mark">&#10003;</span> Doblas la inversi&oacute;n en Meta</div>
+                    <div class="vs-line"><span class="vs-mark">&#10003;</span> Decenas de &aacute;ngulos y creadores nuevos cada mes</div>
+                    <div class="vs-line"><span class="vs-mark">&#10003;</span> Mides, eliges ganadores y haces double down</div>
+                    <div class="vs-punch">Escalas y el retorno se sostiene</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 5: SEPARADOR (DARK) ===================== -->
+        <div class="slide slide-dark slide-portada" id="slide5">
+            <span class="section-tag">La diferencia</span>
+            <h1>No es un paquete de videos.<br>Es la <span class="highlight">ciencia</span> detr&aacute;s de cada venta.</h1>
+            <p class="subtitle" style="font-size: 20px; margin-top: 10px;">Cualquiera produce contenido. Nosotros construimos un sistema que aprende qu&eacute; vende y duplica la apuesta en lo que funciona.</p>
+        </div>
+
+        <!-- ===================== SLIDE 6: LOS 3 PILARES (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide6">
+            <span class="section-tag">C&oacute;mo funciona</span>
+            <h2>Una estrategia, <span class="highlight">tres pilares</span></h2>
+            <div class="pillar-grid">
+                <div class="pillar-card">
+                    <div class="pillar-num">01</div>
+                    <div class="pillar-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <div class="pillar-title">&Aacute;ngulos de venta + guiones</div>
+                    <div class="pillar-desc">Partimos de tu Data Science y tus dolores reales &mdash;<strong>masa muscular, tonificar, autoestima, recomendaci&oacute;n del entrenador</strong>&mdash; y desarrollamos m&uacute;ltiples &aacute;ngulos con sus guiones. No improvisamos: cada video sale a probar una hip&oacute;tesis.</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">02</div>
+                    <div class="pillar-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="pillar-title">Gesti&oacute;n de creadores</div>
+                    <div class="pillar-desc">Nosotros hacemos el casting, el brief y la coordinaci&oacute;n de cada creador seg&uacute;n el paquete. <strong>Tu equipo no toca nada operativo.</strong> Dejas de depender de "quien escriba" y pasas a un flujo profesional y constante de contenido.</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">03</div>
+                    <div class="pillar-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 4 4 5-6"/></svg>
+                    </div>
+                    <div class="pillar-title">An&aacute;lisis post-pauta &amp; double down</div>
+                    <div class="pillar-desc">Medimos el rendimiento de cada video en pauta y detectamos los ganadores. <strong>A lo que funciona le damos vuelta a una</strong> (double down) y descartamos lo que no. As&iacute; cada mes el contenido vende m&aacute;s que el anterior.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 7: FRAMEWORK DE MEDICIÓN (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide7">
+            <span class="section-tag">El framework</span>
+            <h2>Medimos lo que <span class="highlight">nadie en Colombia</span> mide</h2>
+            <p class="subtitle" style="font-size: 18px; max-width: 740px;">Cada contenido se cruza por cuatro variables. As&iacute; sabemos con datos &mdash;no con intuici&oacute;n&mdash; qu&eacute; combinaci&oacute;n est&aacute; trayendo las ventas.</p>
+            <div class="matrix">
+                <div class="matrix-row matrix-head">
+                    <div>&Aacute;ngulo de venta</div>
+                    <div>Creador</div>
+                    <div>Formato</div>
+                    <div>Ventas</div>
+                </div>
+                <div class="matrix-row win">
+                    <div>Quema de grasa</div>
+                    <div>Doctora / experta</div>
+                    <div>Recomendaci&oacute;n</div>
+                    <div class="matrix-sales">&#9650; Alta</div>
+                </div>
+                <div class="matrix-row">
+                    <div>Masa muscular</div>
+                    <div>Deportista</div>
+                    <div>Unboxing</div>
+                    <div class="matrix-sales">Media</div>
+                </div>
+                <div class="matrix-row">
+                    <div>Recomendado por tu entrenador</div>
+                    <div>Coach fitness</div>
+                    <div>Pantalla verde</div>
+                    <div class="matrix-sales">Media</div>
+                </div>
+                <div class="matrix-row">
+                    <div>Mejor sabor del mercado</div>
+                    <div>Usuario cotidiano</div>
+                    <div>Testimonio</div>
+                    <div class="matrix-sales">Baja</div>
+                </div>
+            </div>
+            <p class="matrix-caption">Con UTMs y apps de atribuci&oacute;n en Shopify medimos ventas por creador y por &aacute;ngulo. El mes siguiente, todo el despliegue gira hacia lo que gana.</p>
+        </div>
+
+        <!-- ===================== SLIDE 8: CASOS REALES (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide8">
+            <span class="section-tag">Esto ya lo hicimos</span>
+            <h2>De un &aacute;ngulo correcto a <span class="highlight">otra escala</span></h2>
+            <div class="cases">
+                <div class="case-card">
+                    <div class="case-brand">Marca de suplementos</div>
+                    <div class="case-angle">La dueña &mdash;doctora&mdash; como creadora UGC #1, &aacute;ngulo <em>quema de grasa</em> con berberina.</div>
+                    <div class="case-result">
+                        <span class="case-before">$300k</span>
+                        <span class="case-arrow">&rarr;</span>
+                        <span class="case-after">$30M+</span>
+                    </div>
+                    <div class="case-note">El mes anterior facturaba $300.000. Encontramos el &aacute;ngulo + creador + formato ganador y el mes siguiente se multiplic&oacute; a decenas de millones.</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-brand">Barba Roja</div>
+                    <div class="case-angle">"<em>No m&aacute;s parches en la barba</em>" &mdash; el &aacute;ngulo que encontramos tras probar 100 videos y 20 &aacute;ngulos.</div>
+                    <div class="case-result">
+                        <span class="case-after" style="font-size: 24px;">Producto #1 de la marca</span>
+                    </div>
+                    <div class="case-note">Ese &aacute;ngulo se volvi&oacute; el eslogan y la base de todo su despliegue UGC. Sumamos "recomendado por barberos" en la landing y la conversi&oacute;n subi&oacute; fuerte.</div>
+                </div>
+            </div>
+            <p style="margin-top: 24px; font-size: 15px; font-weight: 600; color: #16a34a; text-align: center; max-width: 760px;">La diferencia entre $300k y $30M no fue m&aacute;s presupuesto. Fue encontrar el contenido correcto y escalarlo.</p>
+        </div>
+
+        <!-- ===================== SLIDE 9: SEPARADOR MVP (DARK) ===================== -->
+        <div class="slide slide-dark slide-portada" id="slide9">
+            <span class="section-tag">El plan</span>
+            <h1>Empecemos <span class="highlight">caminando</span>.<br>Un MVP de 20 videos.</h1>
+            <p class="subtitle" style="font-size: 20px; margin-top: 10px;">Ya no gateamos. Probamos pequeño, encontramos los ganadores y &mdash;solo cuando el retorno est&aacute; claro&mdash; escalamos a 100 o 300. Sin botar plata a ciegas.</p>
+        </div>
+
+        <!-- ===================== SLIDE 10: PAQUETES (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide10">
+            <span class="section-tag">Paquetes</span>
+            <h2>Tres niveles, <span class="highlight">una misma estrategia</span></h2>
+            <div class="tier-table">
+                <div class="tier-card recommended">
+                    <div class="pricing-recommended-tag">Empieza aqu&iacute;</div>
+                    <div class="tier-name">MVP</div>
+                    <div class="tier-volume">20 videos / mes</div>
+                    <div class="tier-unit">$XXX.XXX</div>
+                    <div class="tier-unit-label">por video</div>
+                    <div class="tier-total">Total $X.XXX.XXX / mes</div>
+                    <div class="tier-audience">Para validar &aacute;ngulos y creadores con riesgo controlado</div>
+                </div>
+                <div class="tier-card">
+                    <div class="tier-name">Escala</div>
+                    <div class="tier-volume">100 videos / mes</div>
+                    <div class="tier-unit">$XXX.XXX</div>
+                    <div class="tier-unit-label">por video</div>
+                    <div class="tier-total">Total $XX.XXX.XXX / mes</div>
+                    <div class="tier-audience">Para marcas que ya saben qu&eacute; funciona y quieren volumen</div>
+                </div>
+                <div class="tier-card">
+                    <div class="tier-name">Dominio</div>
+                    <div class="tier-volume">300 videos / mes</div>
+                    <div class="tier-unit">$XXX.XXX</div>
+                    <div class="tier-unit-label">por video</div>
+                    <div class="tier-total">Total $XX.XXX.XXX / mes</div>
+                    <div class="tier-audience">Para sostener una inversi&oacute;n en Meta de $200M+ al mes</div>
+                </div>
+            </div>
+            <div class="pricing-note">
+                <p>Todos los paquetes incluyen los <strong>3 pilares completos</strong>: estrategia de &aacute;ngulos y guiones, gesti&oacute;n de creadores y an&aacute;lisis post-pauta. Precios +IVA.</p>
+                <p style="margin-top: 10px;"><strong>Recomendaci&oacute;n para Sin Intermediarios:</strong> <span class="highlight-note">arrancar con el MVP de 20 videos, medir, y escalar a 100&ndash;300 en cuanto el retorno est&eacute; claro.</span></p>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 11: QUÉ INCLUYE (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide11">
+            <span class="section-tag">Qu&eacute; incluye</span>
+            <h2>Todo lo que <span class="highlight">recibe Sin Intermediarios</span></h2>
+            <div class="includes-grid">
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>Investigaci&oacute;n de &aacute;ngulos de venta</strong> a partir de tu Data Science y encuestas post-compra</div>
+                </div>
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>Guiones por &aacute;ngulo y formato</strong> (unboxing, recomendaci&oacute;n, pantalla verde, testimonio)</div>
+                </div>
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>Casting y gesti&oacute;n de creadores</strong> en Colombia, end-to-end, sin carga para tu equipo</div>
+                </div>
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>Producci&oacute;n del volumen mensual</strong> de videos seg&uacute;n el paquete elegido</div>
+                </div>
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>Dashboard de medici&oacute;n</strong> por &aacute;ngulo, creador y formato con atribuci&oacute;n a ventas</div>
+                </div>
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>An&aacute;lisis post-pauta</strong> y recomendaci&oacute;n mensual de a qu&eacute; hacerle <em>double down</em></div>
+                </div>
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>Coordinaci&oacute;n con tu agencia de trafique</strong> para alinear creativos y lectura de datos</div>
+                </div>
+                <div class="include-item">
+                    <div class="include-check">&#10003;</div>
+                    <div class="include-text"><strong>Sesi&oacute;n estrat&eacute;gica mensual</strong> para revisar resultados y definir el plan del siguiente mes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 12: ROADMAP (LIGHT) ===================== -->
+        <div class="slide slide-light" id="slide12">
+            <span class="section-tag">Roadmap</span>
+            <h2>Caminar, correr, <span class="highlight">escalar</span></h2>
+            <div class="roadmap">
+                <div class="roadmap-card featured">
+                    <div class="roadmap-month">Mes 1 &middot; MVP</div>
+                    <div class="roadmap-title">Probar peque&ntilde;o</div>
+                    <ul class="roadmap-list">
+                        <li>Workshop de &aacute;ngulos con tu Data Science</li>
+                        <li>Guiones y casting de creadores</li>
+                        <li>20 videos UGC en distintos &aacute;ngulos y formatos</li>
+                        <li>Montaje de la medici&oacute;n (UTMs + atribuci&oacute;n)</li>
+                        <li>Primera lectura de qu&eacute; empieza a funcionar</li>
+                    </ul>
+                </div>
+                <div class="roadmap-card">
+                    <div class="roadmap-month">Mes 2 &middot; Double down</div>
+                    <div class="roadmap-title">Duplicar lo que gana</div>
+                    <ul class="roadmap-list">
+                        <li>Identificamos &aacute;ngulos y creadores ganadores</li>
+                        <li>Producimos m&aacute;s variantes de lo que vende</li>
+                        <li>Descartamos lo que no rinde</li>
+                        <li>Subimos volumen si el retorno est&aacute; claro</li>
+                        <li>Reporte de impacto en ventas</li>
+                    </ul>
+                </div>
+                <div class="roadmap-card">
+                    <div class="roadmap-month">Mes 3+ &middot; Escala</div>
+                    <div class="roadmap-title">Sistema a escala</div>
+                    <ul class="roadmap-list">
+                        <li>Despliegue de 100&ndash;300 videos al mes</li>
+                        <li>Contenido suficiente para sostener $200M+ en Meta</li>
+                        <li>Pipeline constante de creadores nuevos</li>
+                        <li>Optimizaci&oacute;n continua basada en datos</li>
+                        <li>Crecimiento compuesto, mes a mes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 13: CIERRE (DARK) ===================== -->
+        <div class="slide slide-dark slide-cierre" id="slide13">
+            <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 46px;">
+                <img src="sin-intermediarios-logo.png" alt="Sin Intermediarios" class="logo-client-dark" style="height: 32px; opacity: 0.95;">
+                <span style="font-size: 26px; color: #334155; font-weight: 300;">&times;</span>
+                <img src="logo-la-real.png" alt="LA REAL" style="height: 34px; opacity: 0.9;">
+            </div>
+            <h1>&iquest;Arrancamos con el <span class="highlight">MVP</span>?</h1>
+            <p class="subtitle" style="font-size: 20px; margin-top: 10px;">Validamos en semanas, no en meses. Si 20 videos funcionan, escalamos a 200. Y el retorno manda.</p>
+            <div class="hero-pills" style="margin-top: 46px;">
+                <a href="https://wa.me/573043148428?text=Hola%20Juanfe%2C%20vi%20la%20propuesta%20de%20contenido%20UGC%20para%20Sin%20Intermediarios%20y%20quiero%20arrancar" target="_blank" class="hero-pill" style="animation-delay: 0.4s; font-size: 17px; padding: 14px 28px; text-decoration: none; cursor: pointer;">
+                    <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" style="width: 22px; height: 22px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Escr&iacute;bele a Juanfe
+                </a>
+            </div>
+            <p style="font-size: 13px; color: #64748B; margin-top: 40px; font-weight: 500;">LA REAL &mdash; Agencia de Ecommerce &middot; juanfe@larealmarketing.com</p>
+        </div>
+
+        <!-- Nav -->
+        <div class="navigation">
+            <button class="nav-btn" onclick="prevSlide()">&#8592;</button>
+            <button class="nav-btn" onclick="nextSlide()">&#8594;</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 13;
+
+        function showSlide(n) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            const slide = document.getElementById(`slide${n}`);
+            slide.classList.add('active');
+            document.getElementById('slideCounter').textContent = `${n} / ${totalSlides}`;
+            document.getElementById('progress').style.width = `${(n / totalSlides) * 100}%`;
+
+            const isLight = slide.classList.contains('slide-light');
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.style.background = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.1)';
+                btn.style.borderColor = isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.15)';
+                btn.style.color = isLight ? '#374151' : '#fff';
+            });
+            document.getElementById('slideCounter').style.color = isLight ? '#9ca3af' : '#64748B';
+            document.getElementById('fullscreenHint').style.color = isLight ? '#9ca3af' : '#64748B';
+            document.getElementById('progress').style.background = isLight ? '#0D1B2A' : '#4ADE80';
+        }
+
+        function nextSlide() { if (currentSlide < totalSlides) { currentSlide++; showSlide(currentSlide); } }
+        function prevSlide() { if (currentSlide > 1) { currentSlide--; showSlide(currentSlide); } }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+            else if (e.key === 'f' || e.key === 'F') { toggleFullscreen(); }
+        });
+
+        document.querySelector('.presentation').addEventListener('click', (e) => {
+            if (!e.target.closest('.navigation') && !e.target.closest('a')) nextSlide();
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+        }
+
+        showSlide(1);
+    </script>
+</body>
+</html>
