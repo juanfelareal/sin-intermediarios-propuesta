@@ -138,6 +138,20 @@
         .sem-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; transform: translateY(1px); }
         .sem-item b { color: var(--ink); font-weight: 700; }
 
+        /* Tabla de resultados */
+        .rtable-wrap { margin-top: 6px; border: 1px solid var(--line); border-radius: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .rtable { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 660px; background: #fff; }
+        .rtable th { text-align: right; font-size: 10.5px; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase; color: var(--muted); padding: 15px 16px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+        .rtable th:first-child, .rtable td:first-child { text-align: left; }
+        .rtable td { padding: 13px 16px; border-bottom: 1px solid var(--line); color: #4b5563; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .rtable tbody tr:last-child td { border-bottom: none; }
+        .rtable .ad { font-weight: 600; color: var(--ink); }
+        .rtable .ad small { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #9ca3af; }
+        .rtable .roas { font-weight: 800; color: var(--green); }
+        .rtable tfoot td { background: var(--bg); font-weight: 800; color: var(--ink); border-top: 2px solid var(--line); border-bottom: none; }
+        .rtable tfoot .roas { color: var(--green); }
+        .rcap { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
         /* Callout / next step */
         .next { margin-top: 56px; background: var(--navy); color: #fff; border-radius: 18px; padding: 40px 40px; }
         .next h2 { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.12); }
@@ -305,6 +319,39 @@
                 <li><b>Adriza</b> <span>Pasó de ~$300k a decenas de millones al mes tras encontrar la combinación ángulo–creador–formato correcta y escalarla.</span></li>
                 <li><b>Leonisa</b> <span>Gestión de pauta multiplataforma (Meta, Google, TikTok, Pinterest).</span></li>
             </ul>
+        </section>
+
+        <section>
+            <h2>Resultados a mediano y largo plazo</h2>
+            <p>Esto es lo que habilita una estrategia de contenido bien medida: cada ángulo ganador se puede escalar por separado. Datos reales de una de nuestras cuentas —cada fila es un anuncio distinto— sosteniendo inversiones altas por pieza con retornos consistentes.</p>
+            <div class="rtable-wrap">
+                <table class="rtable">
+                    <thead>
+                        <tr>
+                            <th>Anuncio (ángulo)</th>
+                            <th>Inversión</th>
+                            <th>Compras</th>
+                            <th>Costo / compra</th>
+                            <th>Valor generado</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="ad">Nuevo cuidado facial <small>Reel</small></td><td>$6.868.124</td><td>286</td><td>$24.014</td><td>$43.052.692</td><td class="roas">6,27</td></tr>
+                        <tr><td class="ad">Derribar el mito <small>Video</small></td><td>$7.211.714</td><td>284</td><td>$25.393</td><td>$42.280.256</td><td class="roas">5,86</td></tr>
+                        <tr><td class="ad">La barba necesita <small>Video</small></td><td>$8.394.402</td><td>275</td><td>$30.525</td><td>$38.811.295</td><td class="roas">4,62</td></tr>
+                        <tr><td class="ad">San Valentín · Kits <small>Video</small></td><td>$6.104.499</td><td>200</td><td>$30.522</td><td>$30.586.062</td><td class="roas">5,01</td></tr>
+                        <tr><td class="ad">Cansado de lavarse la cara <small>Reel</small></td><td>$4.460.553</td><td>195</td><td>$22.875</td><td>$29.089.710</td><td class="roas">6,52</td></tr>
+                        <tr><td class="ad">Regalo ideal · Navidad <small>Video</small></td><td>$4.967.767</td><td>186</td><td>$26.708</td><td>$27.329.440</td><td class="roas">5,50</td></tr>
+                        <tr><td class="ad">Fallamos en la logística <small>Video</small></td><td>$5.140.496</td><td>174</td><td>$29.543</td><td>$25.603.600</td><td class="roas">4,98</td></tr>
+                        <tr><td class="ad">Kits <small>Video</small></td><td>$3.859.569</td><td>165</td><td>$23.391</td><td>$25.021.600</td><td class="roas">6,48</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><td>Total</td><td>$47.007.124</td><td>1.765</td><td>$26.632</td><td>$261.774.655</td><td class="roas">5,6x</td></tr>
+                    </tfoot>
+                </table>
+            </div>
+            <p class="rcap">Cada anuncio es un ángulo distinto sosteniendo entre $4M y $8M de inversión con ROAS de 4 a 6+. Más ángulos ganadores = más presupuesto que se puede invertir de forma rentable. Así se escala al mismo tiempo presupuesto, conversiones y retorno.</p>
         </section>
 
         <section>
